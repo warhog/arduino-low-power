@@ -458,3 +458,25 @@ Using our Mini Ultra 8 MHz (we are assembling an army of them right now using ou
 </tbody>
 </table>
 
+In idle mode, the IO clock is available for general IO modules usage. Therefore, you need to pull any unused pins low in output mode to reduce the overall current consumption.
+
+In power save mode, Timer 2 can be clocked asynchronously from an external 32.768 kHz crystal to achieve very low current consumption. However, this will require the removal of the external 8 MHz resonator (or crystal in other board variants) to facilitate the low frequency crystal. This will require the ATmega328 to run on its internal 8 MHz on chip RC oscillator in normal operation. But, this will affect time critical modules such as millis, PWM and higher baud rate USART communication as the accuracy of the on chip RC oscillator is limited and is affected pretty much by the operating voltage and temperature. We have some prototype work on running a 32.768 kHz crystal asynchronously which can be seen here.
+
+Here’s a sample code snapshot on how to use the library.
+
+```
+#include "LowPower.h"
+ 
+void setup()
+{
+    // No setup is required for this library
+}
+ 
+void loop()
+{
+    // Sleep for 8 s with ADC module and BOD module off
+    LowPower.powerDown(SLEEP_8S, ADC_CONTROL_OFF, BOD_OFF);
+    // Do something here
+    // Example: read sensor, log data, transmit data
+}
+```
