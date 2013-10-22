@@ -4,12 +4,12 @@ This is a simple and easy to use library that has the following features:
 
 Supports all sleeping mode of ATmega328P:
 
-* Idle.
-* ADC reduction mode.
-* Power save.
-* Power down.
-* Standby.
-* Extended standby.
+* Idle
+* ADC reduction mode
+* Power save
+* Power down
+* Standby
+* Extended standby
 
 Selectable sleep duration:
 
