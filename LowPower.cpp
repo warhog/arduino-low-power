@@ -28,6 +28,7 @@
 #include <avr/wdt.h>
 #include <avr/power.h>
 #include <avr/interrupt.h>
+#include <stddef.h>
 #include "LowPower.h"
 
 // Only Pico Power devices can change BOD settings through software
@@ -938,6 +939,27 @@ void	LowPowerClass::powerExtStandby(period_t period, adc_t adc, bod_t bod,
 #endif 
 
 /*******************************************************************************
+* Name: addWdtHook
+* Description: Adds watchdog isr hook function
+*			         the hook function is called each time the watchdog isr is executed
+*
+* Argument  	Description
+* =========  	===========
+* 1. func    	function name of the function to execute when watchdog isr gets executed
+*				the function must be declared void and without arguments
+* 				e.g. void functionName()
+*/
+void LowPowerClass::addWdtHook(void (*func)()) {
+	_func = func;
+}
+
+void LowPowerClass::callWdtHook() {
+	if (_func != NULL) {
+		_func();
+	}
+}
+
+/*******************************************************************************
 * Name: ISR (WDT_vect)
 * Description: Watchdog Timer interrupt service routine. This routine is 
 *		           required to allow automatic WDIF and WDIE bit clearance in 
@@ -948,6 +970,8 @@ ISR (WDT_vect)
 {
 	// WDIE & WDIF is cleared in hardware upon entering this ISR
 	wdt_disable();
+	LowPower.callWdtHook();
+	
 }
 
 LowPowerClass LowPower;

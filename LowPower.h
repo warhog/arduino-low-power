@@ -136,7 +136,13 @@ class LowPowerClass
 		#if !defined __AVR_ATtiny85__
 			void	powerExtStandby(period_t period, adc_t adc, bod_t bod, timer2_t timer2);
 		#endif
+		void	addWdtHook(void (*func)());
+		void	callWdtHook();
+
+	private:
+		void (*_func)() = NULL;
 };
+
 
 extern LowPowerClass LowPower;
 #endif
