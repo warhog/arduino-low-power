@@ -28,7 +28,6 @@
 #include <avr/wdt.h>
 #include <avr/power.h>
 #include <avr/interrupt.h>
-#include <stddef.h>
 #include "LowPower.h"
 
 // Only Pico Power devices can change BOD settings through software

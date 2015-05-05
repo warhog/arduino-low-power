@@ -1,6 +1,8 @@
 #ifndef LowPower_h
 #define LowPower_h
 
+#include <stddef.h>
+
 enum period_t
 {
 	SLEEP_15MS,

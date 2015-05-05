@@ -20,6 +20,7 @@ More:
 * Option to disable Brownout Detector (BOD) module to further reduce current consumption by approximately 17 µA. BOD module cannot be disabled through software in idle and ADC noise reduction mode. It can only be disabled through fuse setting in these 2 modes. 
 * Option to shutdown Timer 2 module in idle, ADC noise reduction, power save, and extended standby mode. Timer 2 is used by the core of Arduino for PWM operation. 
 * Option to shutdown Timer 0, Timer 1, USART0, TWI, and SPI module in idle mode.
+* Option to hook up watchdog ISR to execute custom code
 
 There isn't any wake up functionality except using the Watchdog timer module to allow certain amount of sleep duration as we think other wake up resources (interrupt on pins, TWI address match, ADC conversion complete, SPI serial transfer complete, EEPROM ready) are closely bind to the external peripheral or interface it is connected to. For example, an external RTC chip with it’s clock output pin connected to pin 2 of the Arduino board. In this case, the library should not know what this external interrupt signal means to the system (timer or counter for time stamping or other usage). Therefore, we omit them out (at least for now). But, rest assured examples are included (more will be added from time to time) to demonstrate the usage of the library with external peripheral and interface.
 
